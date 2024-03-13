@@ -24,5 +24,5 @@ getFile (Just path) = do
             return $ Just content
 getFile _ = return Nothing
 
-fileParsing :: Options -> IO ()
-fileParsing opt = return ()
+fillConf :: String -> Maybe Conf
+fillConf _ = Nothing

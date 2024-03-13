@@ -45,14 +45,15 @@ options =
     Option ['f'] [""] (ReqArg (\arg opts -> opts
     {filePath = Just arg}) "") "Path of the file"]
 
+isNotOpt :: Maybe Options -> Maybe Options
+isNotOpt (Just opt)
+    |   isNothing (colorNb opt) || isNothing (convergence opt) ||
+        isNothing (filePath opt) = Nothing
+    |   otherwise = Just opt
+isNotOpt _ = Nothing
+
 checkEmpty :: ([Options -> Options], [String], [String]) -> Maybe Options
-checkEmpty (opts, [], []) = do
-    let opt = Just (foldl (flip id) defaultOptions opts) in
-        if  isNothing (colorNb (fromJust opt)) ||
-            isNothing (convergence (fromJust opt)) ||
-            isNothing (filePath (fromJust opt))
-            then Nothing
-            else opt
+checkEmpty (opts, [], []) = isNotOpt (Just (foldl (flip id) defaultOpt opts))
 checkEmpty _ = Nothing
 
 parseArgs :: [String] -> Maybe Options

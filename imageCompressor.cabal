@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       FileParsing
+      ImageCompressor
       Parsing
   other-modules:
       Paths_imageCompressor

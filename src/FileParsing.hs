@@ -6,6 +6,12 @@
 -}
 
 module FileParsing (fileParsing) where
+data Vector = Vector [Double] deriving (Show)
+
+data Conf = Conf {
+    coordinates :: [Vector],
+    colors :: [Vector]
+} deriving (Show)
 
 import Parsing (Options(..))
 getFile :: Maybe String -> IO (Maybe String)

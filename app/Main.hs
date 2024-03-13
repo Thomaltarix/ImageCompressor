@@ -12,6 +12,8 @@ import FileParsing (fileParsing)
 import System.Environment
 import System.Exit
 import System.IO (hPutStrLn, stderr)
+exit :: String -> IO ()
+exit str = hPutStrLn stderr str >> exitWith (ExitFailure 84)
 
 main :: IO ()
 main = do

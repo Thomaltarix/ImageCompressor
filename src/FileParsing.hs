@@ -5,7 +5,13 @@
 -- FileParsing
 -}
 
-module FileParsing (fileParsing) where
+module FileParsing (getFile,
+                    fillConf,
+                    Conf(..)) where
+
+import System.IO
+import Control.Exception
+
 data Vector = Vector [Double] deriving (Show)
 
 data Conf = Conf {
@@ -13,7 +19,6 @@ data Conf = Conf {
     colors :: [Vector]
 } deriving (Show)
 
-import Parsing (Options(..))
 getFile :: Maybe String -> IO (Maybe String)
 getFile (Just path) = do
     file <- try $ openFile path ReadMode :: IO (Either SomeException Handle)

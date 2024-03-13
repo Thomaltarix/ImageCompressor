@@ -6,7 +6,7 @@
 -}
 
 module Parsing (Options(..),
-                defaultOptions,
+                defaultOpt,
                 getInt,
                 getDouble,
                 options,
@@ -23,8 +23,8 @@ data Options = Options {
     filePath :: Maybe String
 } deriving (Show)
 
-defaultOptions :: Options
-defaultOptions = Options {
+defaultOpt :: Options
+defaultOpt = Options {
     colorNb  = Nothing,
     convergence = Nothing,
     filePath = Nothing

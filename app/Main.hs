@@ -7,11 +7,13 @@
 
 module Main (main) where
 
-import Parsing (parseArgs)
-import FileParsing (fileParsing)
+import Parsing (parseArgs, Options(..))
+import FileParsing (getFile, fillConf)
+import ImageCompressor (imageCompressor)
 import System.Environment
 import System.Exit
-import System.IO (hPutStrLn, stderr)
+import System.IO
+
 exit :: String -> IO ()
 exit str = hPutStrLn stderr str >> exitWith (ExitFailure 84)
 

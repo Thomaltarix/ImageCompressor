@@ -36,9 +36,11 @@ isCoord :: Double -> Bool
 isCoord value = value >= 0
 
 addToVector :: Vector -> Double -> Type -> Vector
-addToVector (Vector vec) value valType
-    | valType == Coord && isCoord value = Vector (value : vec)
-    | valType == Color && isColor value = Vector (value : vec)
+addToVector (Vector vec) value Coord
+    | isCoord value = Vector (value : vec)
+    | otherwise = Vector []
+addToVector (Vector vec) value Color
+    | isColor value = Vector (value : vec)
     | otherwise = Vector []
 
 parseLine :: String -> String -> Type -> Vector
@@ -58,14 +60,14 @@ parseLine (x:xs) str valType
 
 parseFile :: [String] -> [(Vector, Vector)]
 parseFile [] = []
-parseFile (x1:x2:xs) = (parseLine x1 "" Coord, parseLine x2 "" Color) : parseFile xs
+parseFile (x1:x2:xs) =
+    (parseLine x1 "" Coord, parseLine x2 "" Color) : parseFile xs
 parseFile _ = []
 
 getNbLines :: String -> Int
 getNbLines "" = 0
-getNbLines (x:xs)
-    | x == '\n' = 1 + getNbLines xs
-    | otherwise = getNbLines xs
+getNbLines ('\n':xs) = 1 + getNbLines xs
+getNbLines (_:xs) = getNbLines xs
 
 checkVectorList :: [(Vector, Vector)] -> Bool
 checkVectorList [] = True
@@ -75,9 +77,7 @@ checkVectorList ((Vector x, Vector y):(Vector x', Vector y'):xs)
 checkVectorList _ = False
 
 fillConf :: String -> Maybe Conf
-fillConf str = do
-    let lines' = words str
-    let vectorList = parseFile lines'
+fillConf str = let vectorList = parseFile (words str) in
     if length vectorList == getNbLines str && checkVectorList vectorList
         then Just (Conf vectorList)
         else Nothing

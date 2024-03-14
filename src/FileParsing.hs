@@ -14,10 +14,9 @@ import Control.Exception
 
 data Vector = Vector [Double] deriving (Show)
 
-data Conf = Conf {
-    coordinates :: [Vector],
-    colors :: [Vector]
-} deriving (Show)
+data Type = Coord | Color deriving (Show, Eq)
+
+data Conf = Conf [(Vector, Vector)] deriving (Show)
 
 getFile :: Maybe String -> IO (Maybe String)
 getFile (Just path) = do

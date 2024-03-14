@@ -29,6 +29,12 @@ getFile (Just path) = do
             return $ Just content
 getFile _ = return Nothing
 
+isColor :: Double -> Bool
+isColor value = value >= 0 && value <= 255
+
+isCoord :: Double -> Bool
+isCoord value = value >= 0
+
 addToVector :: Vector -> Double -> Type -> Vector
 addToVector (Vector vec) value valType
     | valType == Coord && isCoord value = Vector (value : vec)
@@ -54,6 +60,20 @@ parseFile :: [String] -> [(Vector, Vector)]
 parseFile [] = []
 parseFile (x1:x2:xs) = (parseLine x1 "" Coord, parseLine x2 "" Color) : parseFile xs
 parseFile _ = []
+
+getNbLines :: String -> Int
+getNbLines "" = 0
+getNbLines (x:xs)
+    | x == '\n' = 1 + getNbLines xs
+    | otherwise = getNbLines xs
+
+checkVectorList :: [(Vector, Vector)] -> Bool
+checkVectorList [] = True
+checkVectorList ((Vector x, Vector y):(Vector x', Vector y'):xs)
+    | length x /= length x' || length y /= length y' = False
+    | otherwise = checkVectorList xs
+checkVectorList _ = False
+
 fillConf :: String -> Maybe Conf
 fillConf str = do
     let lines' = words str

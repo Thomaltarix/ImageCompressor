@@ -24,6 +24,10 @@ source-repository head
   location: https://github.com/githubuser/imageCompressor
 
 library
+  exposed-modules:
+      FileParsing
+      ImageCompressor
+      Parsing
   other-modules:
       Paths_imageCompressor
   autogen-modules:

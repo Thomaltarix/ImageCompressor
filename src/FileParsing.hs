@@ -29,18 +29,12 @@ getFile (Just path) = do
             return $ Just content
 getFile _ = return Nothing
 
-isColor :: Double -> Bool
-isColor value = value >= 0 && value <= 255
-
-isCoord :: Double -> Bool
-isCoord value = value >= 0
-
 addToVector :: Vector -> Double -> Type -> Vector
 addToVector (Vector vec) value Coord
-    | isCoord value = Vector (value : vec)
+    | value >= 0 = Vector (value : vec)
     | otherwise = Vector []
 addToVector (Vector vec) value Color
-    | isColor value = Vector (value : vec)
+    | value >= 0 && value <= 255 = Vector (value : vec)
     | otherwise = Vector []
 
 parseLine :: String -> String -> Type -> Vector

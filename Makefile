@@ -35,10 +35,9 @@ clean:
 		@stack clean
 		@make clean -sC bonus/
 
-fclean: clean
+fclean: clean clean_tests clean_bonus
 		@make fclean -sC bonus/
 		@rm -f $(NAME)
-		@rm -f $(BONUS_NAME)
 		@rm -rf test/coverage
 		@rm -f app/Main
 
@@ -57,3 +56,7 @@ clean_tests:
 bonus:
 		@make -sC bonus/
 		@cp bonus/$(BONUS_NAME) ./
+
+clean_bonus:
+		@make fclean -sC bonus/
+		@rm -f $(BONUS_NAME)

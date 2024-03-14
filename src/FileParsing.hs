@@ -65,10 +65,9 @@ getNbLines (_:xs) = getNbLines xs
 
 checkVectorList :: [(Vector, Vector)] -> Bool
 checkVectorList [] = True
-checkVectorList ((Vector x, Vector y):(Vector x', Vector y'):xs)
-    | length x /= length x' || length y /= length y' = False
+checkVectorList ((Vector x, Vector y):xs)
+    | length x /= 2 || length y /= 3 = False
     | otherwise = checkVectorList xs
-checkVectorList _ = False
 
 fillConf :: String -> Maybe Conf
 fillConf str = let vectorList = parseFile (words str) in

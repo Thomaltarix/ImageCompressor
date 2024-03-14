@@ -24,8 +24,8 @@ getFile (Just path) = do
     file <- try $ openFile path ReadMode :: IO (Either SomeException Handle)
     case file of
         Left _ -> return Nothing
-        Right file -> do
-            content <- hGetContents file
+        Right file' -> do
+            content <- hGetContents file'
             return $ Just content
 getFile _ = return Nothing
 

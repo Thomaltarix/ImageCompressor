@@ -26,8 +26,9 @@ getOptionsFilePath _ = ""
 main :: IO ()
 main = do
     args <- getArgs
-    let opt = parseArgs args
-    content <- getFile (Just (getOptionsFilePath opt))
+    content <- getFile (Just (getOptionsFilePath (parseArgs args)))
     case content of
         Nothing -> exit "Error: file not found"
-        Just content' -> imageCompressor (fillConf content') opt
+        Just content' -> imageCompressor (fillConf content') (parseArgs args)
+        -- Just content' -> fillConf content'
+        -- Just content' -> print (fillConf content')

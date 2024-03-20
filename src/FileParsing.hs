@@ -7,7 +7,8 @@
 
 module FileParsing (getFile,
                     fillConf,
-                    Conf(..)) where
+                    Conf(..),
+                    Vector(..)) where
 
 import System.IO
 import Control.Exception

@@ -28,6 +28,7 @@ library
       FileParsing
       ImageCompressor
       Parsing
+      Vector
   other-modules:
       Paths_imageCompressor
   autogen-modules:

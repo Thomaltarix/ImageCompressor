@@ -13,8 +13,7 @@ module FileParsing (getFile,
 import System.IO
 import Control.Exception
 import Data.Char
-
-data Vector = Vector [Double] deriving (Show)
+import Vector (Vector(..))
 
 data Type = Coord | Color deriving (Show, Eq)
 

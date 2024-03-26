@@ -12,7 +12,7 @@ import Parsing (Options(..))
 import GHC.Float
 import Vector (Vector(..), getDistance, roundVector)
 import DisplayResult (displayResult)
-import CentroidBind (CentroidBind(..), createRandomCentroids,
+import CentroidBind (CentroidBind(..),
                      bindVectorToCentroid, emptyCentroid)
 
 getNbColors :: Options -> Int
@@ -65,8 +65,12 @@ doImageCompressor (Conf lconf) opt centroids =
     doImageCompressor (Conf lconf) opt [emptyCentroid newCentroid |
       newCentroid <- recentered]
 
+createCentroidsBasedOnConf :: Conf -> Int -> [CentroidBind]
+createCentroidsBasedOnConf (Conf lconf) nbColors =
+  [CentroidBind (vector) [] | vector <- take nbColors (map snd lconf)]
+
 imageCompressor :: Maybe Conf -> Maybe Options -> IO ()
 imageCompressor (Just c) (Just opt) =
-  doImageCompressor c opt (createRandomCentroids (getNbColors (opt)))
+  doImageCompressor c opt (createCentroidsBasedOnConf c (getNbColors opt))
 imageCompressor Nothing _ = putStrLn "Wrong file content"
 imageCompressor _ _ = putStrLn "Wrong Options"

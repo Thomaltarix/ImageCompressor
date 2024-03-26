@@ -6,18 +6,12 @@
 -}
 
 module CentroidBind (CentroidBind(..),
-                     createRandomCentroids,
                      bindVectorToCentroid,
                      emptyCentroid) where
 
 import Vector (Vector(..), getClosestVector)
 
 data CentroidBind = CentroidBind Vector [(Vector, Vector)] deriving (Show)
-
-createRandomCentroids :: Int -> [CentroidBind]
-createRandomCentroids 0 = []
-createRandomCentroids n =
-  CentroidBind (Vector [128, 128, 128]) [] : createRandomCentroids (n - 1)
 
 getCentroidFromBindList :: [CentroidBind] -> [Vector]
 getCentroidFromBindList [] = []
